@@ -1,5 +1,4 @@
-
-const API_URL = "http://127.0.0.1:8000";
+const API_URL = "";
 
 const messageInput = document.getElementById("message-input");
 const predictButton = document.getElementById("predict-button");
@@ -177,7 +176,7 @@ async function predictMessage() {
     } catch (error) {
         showError(
             error.message.includes("Failed to fetch")
-                ? "Cannot connect to the backend. Make sure FastAPI is running."
+                ? "Cannot connect to the deployed backend. Please try again."
                 : error.message
         );
 

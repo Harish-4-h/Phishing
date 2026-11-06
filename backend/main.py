@@ -1,4 +1,3 @@
-
 import re
 import html
 import joblib
@@ -6,6 +5,7 @@ import joblib
 from pathlib import Path
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
 # --------------------------------
@@ -36,6 +36,7 @@ app.add_middleware(
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 MODEL_DIR = BASE_DIR / "models"
+FRONTEND_DIR = BASE_DIR / "frontend"
 
 model_path = MODEL_DIR / "naive_bayes_model.pkl"
 vectorizer_path = MODEL_DIR / "tfidf_vectorizer.pkl"
@@ -69,20 +70,7 @@ def clean_text(text):
     return text.strip()
 
 # --------------------------------
-# 6. Root endpoint
-# --------------------------------
-
-@app.get("/")
-def home():
-
-    return {
-        "message": "AI Phishing & Spam Detection API",
-        "status": "Running",
-        "algorithm": "Multinomial Naive Bayes"
-    }
-
-# --------------------------------
-# 7. Health endpoint
+# 6. Health endpoint
 # --------------------------------
 
 @app.get("/health")
@@ -95,7 +83,7 @@ def health():
     }
 
 # --------------------------------
-# 8. Prediction endpoint
+# 7. Prediction endpoint
 # --------------------------------
 
 @app.post("/predict")
@@ -142,3 +130,13 @@ def predict(request: MessageRequest):
             "spam_phishing": round(spam_confidence, 2)
         }
     }
+
+# --------------------------------
+# 8. Serve Frontend
+# --------------------------------
+
+app.mount(
+    "/",
+    StaticFiles(directory=FRONTEND_DIR, html=True),
+    name="frontend"
+)
