@@ -1,0 +1,113 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Phishing & Spam Detection</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <div class="logo">🛡️</div>
+            <h1>AI Phishing & Spam Detection</h1>
+            <p>Intelligent message classification using Multinomial Naive Bayes</p>
+
+            <div class="api-status">
+                <span id="status-indicator" class="status-dot offline"></span>
+                <span id="api-status">Checking API connection...</span>
+            </div>
+        </header>
+
+        <main>
+            <section class="input-card">
+                <h2>Analyze Your Message</h2>
+                <p class="description">
+                    Enter an email or message below to check whether it is legitimate or spam/phishing.
+                </p>
+
+                <label for="message-input">Your Message</label>
+
+                <textarea
+                    id="message-input"
+                    placeholder="Paste your email or message here..."
+                    maxlength="20000"
+                ></textarea>
+
+                <div class="input-info">
+                    <span id="char-count">0 / 20000 characters</span>
+                    <button id="clear-button" type="button">Clear</button>
+                </div>
+
+                <button id="predict-button" type="button">
+                    <span id="button-text">Analyze Message</span>
+                    <span id="loading-spinner" class="spinner hidden"></span>
+                </button>
+
+                <p id="error-message" class="error-message hidden"></p>
+            </section>
+
+            <section id="result-section" class="result-card hidden">
+                <h2>Analysis Result</h2>
+
+                <div id="result-banner" class="result-banner">
+                    <span id="result-icon">🛡️</span>
+                    <div>
+                        <h3 id="result-label">Result</h3>
+                        <p id="result-description"></p>
+                    </div>
+                </div>
+
+                <div class="confidence-section">
+                    <div class="confidence-heading">
+                        <span>Prediction Confidence</span>
+                        <strong id="confidence-value">0%</strong>
+                    </div>
+
+                    <div class="progress-track">
+                        <div id="confidence-bar" class="progress-bar"></div>
+                    </div>
+                </div>
+
+                <div class="probability-section">
+                    <h3>Probability Breakdown</h3>
+
+                    <div class="probability-item">
+                        <div class="probability-heading">
+                            <span>Legitimate</span>
+                            <strong id="legitimate-value">0%</strong>
+                        </div>
+                        <div class="progress-track">
+                            <div id="legitimate-bar" class="progress-bar legitimate-bar"></div>
+                        </div>
+                    </div>
+
+                    <div class="probability-item">
+                        <div class="probability-heading">
+                            <span>Spam / Phishing</span>
+                            <strong id="spam-value">0%</strong>
+                        </div>
+                        <div class="progress-track">
+                            <div id="spam-bar" class="progress-bar spam-bar"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="analyzed-message">
+                    <h3>Analyzed Message</h3>
+                    <p id="analyzed-text"></p>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>Powered by TF-IDF & Multinomial Naive Bayes</p>
+            <p>AI-Based Phishing and Spam Detection System</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
